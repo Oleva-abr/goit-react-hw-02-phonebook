@@ -1,10 +1,13 @@
+import style from './contactList.module.css';
 const ContactList = ({ contacts, onDeleteContact }) => (
-  <ul>
+  <ul className={style.contactList}>
     {contacts.map(({ id, name, number }) => {
       return (
-        <li key={id}>
+        <li className={style.item} key={id}>
           {name}: {number}
-          <button onClick={() => onDeleteContact(id)}>Delete</button>
+          <button className={style.btn} onClick={() => onDeleteContact(id)}>
+            Delete
+          </button>
         </li>
       );
     })}
