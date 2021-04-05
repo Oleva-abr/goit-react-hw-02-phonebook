@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ContactForm from './components/ContactForm';
-// import ContactList from './components/ContactList';
+import ContactList from './components/ContactList';
 // import Filter from './components/Filter';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -33,15 +33,33 @@ class App extends Component {
       }));
     }
   };
+  deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
+  };
+
+  filtercontact = () => {
+    const { filter, contacts } = this.state;
+    const filterLowerCase = filter.toLowerCase();
+
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filterLowerCase),
+    );
+  };
+
   render() {
     return (
       <div>
         <h1>Phonebook</h1>
         <ContactForm OnSubmit={this.addContact} />
-        {/* 
+
         <h2>Contacts</h2>
-        <Filter />
-        <ContactList /> */}
+        {/* <Filter /> */}
+        <ContactList
+          contacts={this.filtercontact()}
+          onDeleteContact={this.deleteContact}
+        />
       </div>
     );
   }
