@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
-// import Filter from './components/Filter';
+import Filter from './components/Filter';
 import { v4 as uuidv4 } from 'uuid';
 
 class App extends Component {
@@ -47,6 +47,9 @@ class App extends Component {
       contact.name.toLowerCase().includes(filterLowerCase),
     );
   };
+  changeFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
 
   render() {
     return (
@@ -55,7 +58,7 @@ class App extends Component {
         <ContactForm OnSubmit={this.addContact} />
 
         <h2>Contacts</h2>
-        {/* <Filter /> */}
+        <Filter value={this.state.filter} onChange={this.changeFilter} />
         <ContactList
           contacts={this.filtercontact()}
           onDeleteContact={this.deleteContact}
